@@ -14,7 +14,7 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   late TodoBloc bloc;
-  
+
   // لیست وضعیت هر چک‌باکس
   List<bool> isCheckedList = List.generate(5, (_) => false);
   getTodo() async {
@@ -98,6 +98,10 @@ class _TodoListState extends State<TodoList> {
                             child: Row(
                               children: [
                                 Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  activeColor: Colors.black,
                                   value: data?.isCompleted,
                                   onChanged: (value) {
                                     setState(() {
@@ -112,25 +116,42 @@ class _TodoListState extends State<TodoList> {
                                     SizedBox(
                                       width:
                                           MediaQuery.of(context).size.width *
-                                          .6, // محدود کردن عرض به عرض موجود
+                                          .6,
                                       child: Text(
                                         data?.title ?? '',
                                         style: TextStyle(
-                                          color: Color(0xff737373),
+                                          color:
+                                              data?.isCompleted != null &&
+                                                      data?.isCompleted == true
+                                                  ? Colors.grey.shade400
+                                                  : Color(0xff737373),
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
+                                          decoration:
+                                              data?.isCompleted != null &&
+                                                      data?.isCompleted == true
+                                                  ? TextDecoration.lineThrough
+                                                  : null,
                                         ),
-                                        softWrap:
-                                            true, // برای اینکه متن به خط بعدی برود
+                                        softWrap: true,
                                       ),
                                     ),
                                     SizedBox(height: 13),
                                     Text(
-                                      data?.time ?? '',
+                                      "${data?.time} ${bloc.hurs.value >= 12 && bloc.minut.value >= 0 ? 'PM' : 'AM'}",
                                       style: TextStyle(
-                                        color: Color(0xffA3A3A3),
+                                        color:
+                                            data?.isCompleted != null &&
+                                                    data?.isCompleted == true
+                                                ? Colors.grey.shade400
+                                                : Color(0xffA3A3A3),
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
+                                        decoration:
+                                            data?.isCompleted != null &&
+                                                    data?.isCompleted == true
+                                                ? TextDecoration.lineThrough
+                                                : null,
                                       ),
                                     ),
                                   ],

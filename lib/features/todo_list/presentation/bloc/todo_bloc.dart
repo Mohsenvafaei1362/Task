@@ -13,11 +13,11 @@ part 'todo_state.dart';
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final ToDoPreferences toDoPreferences;
 
-  final dateTime = BehaviorSubject<String>.seeded('14 : 00');
+  final dateTime = BehaviorSubject<String>.seeded('14:00');
   final hurs = BehaviorSubject<int>.seeded(14);
   final minut = BehaviorSubject<int>.seeded(14);
   bool isSelected = true;
-  String? taskName = '';
+  String taskName = '';
   List<Todo>? result = [];
   final List<Todo>? todo = [
     Todo(

@@ -140,72 +140,61 @@ class WidgetButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        bloc
-            .saveTodo(
-              Todo(
-                title: bloc.taskName,
-                isCompleted: bloc.isSelected,
-                time: bloc.dateTime.value,
+        if (bloc.taskName.isEmpty) {
+          final overlay = Overlay.of(context);
+          final overlayEntry = overlayDialog(
+            Text(
+              'Error',
+              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                color: CupertinoColors.destructiveRed,
               ),
-            )
-            .then((value) {
-              context.go('/todo');
-              FocusScope.of(context).unfocus();
+            ),
+            Icon(
+              CupertinoIcons.clear_thick_circled,
+              color: CupertinoColors.destructiveRed,
+            ),
+          );
 
-              //! نمایش پیام  با Overlay
-              final overlay = Overlay.of(context);
-              final overlayEntry = OverlayEntry(
-                builder:
-                    (context) => Positioned(
-                      bottom: MediaQuery.of(context).padding.bottom + 20,
-                      left: 20,
-                      right: 20,
-                      child: CupertinoPopupSurface(
-                        child: Container(
-                          padding: EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: CupertinoColors.systemTeal.withAlpha(20),
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CupertinoColors.systemGrey.withOpacity(
-                                  0.2,
-                                ),
-                                blurRadius: 6,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                CupertinoIcons.checkmark_alt_circle_fill,
-                                color: CupertinoColors.systemGreen,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                'Task added successfully',
-                                style: CupertinoTheme.of(
-                                  context,
-                                ).textTheme.textStyle.copyWith(
-                                  color:
-                                      CupertinoColors
-                                          .systemGreen, // استفاده از رنگ‌های سیستمی iOS
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-              );
+          overlay.insert(overlayEntry);
 
-              overlay.insert(overlayEntry);
+          Future.delayed(Duration(seconds: 4), () {
+            overlayEntry.remove();
+          });
+        } else {
+          bloc
+              .saveTodo(
+                Todo(
+                  title: bloc.taskName,
+                  isCompleted: bloc.isSelected,
+                  time: bloc.dateTime.value,
+                ),
+              )
+              .then((value) {
+                context.go('/todo');
+                FocusScope.of(context).unfocus();
 
-              Future.delayed(Duration(seconds: 4), () {
-                overlayEntry.remove();
+                //! نمایش پیام  با Overlay
+                final overlay = Overlay.of(context);
+                final overlayEntry = overlayDialog(
+                  Text(
+                    'Task added successfully',
+                    style: CupertinoTheme.of(context).textTheme.textStyle
+                        .copyWith(color: CupertinoColors.systemGreen),
+                  ),
+
+                  Icon(
+                    CupertinoIcons.checkmark_alt_circle_fill,
+                    color: CupertinoColors.systemGreen,
+                  ),
+                );
+
+                overlay.insert(overlayEntry);
+
+                Future.delayed(Duration(seconds: 4), () {
+                  overlayEntry.remove();
+                });
               });
-            });
+        }
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
@@ -220,6 +209,37 @@ class WidgetButton extends StatelessWidget {
           color: Colors.white,
         ),
       ),
+    );
+  }
+
+  //! نمایش پیام  با Overlay
+  OverlayEntry overlayDialog(Widget text, Widget icon) {
+    return OverlayEntry(
+      builder:
+          (context) => Positioned(
+            bottom: MediaQuery.of(context).padding.bottom + 20,
+            left: 20,
+            right: 20,
+            child: CupertinoPopupSurface(
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemTeal.withAlpha(20),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: CupertinoColors.systemGrey.withOpacity(0.2),
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [icon, SizedBox(width: 8), text],
+                ),
+              ),
+            ),
+          ),
     );
   }
 }
@@ -325,7 +345,7 @@ class ShowHours extends StatelessWidget {
                         bloc.hurs.sink.add(time.hour);
                         bloc.minut.sink.add(time.minute);
                         bloc.dateTime.sink.add(
-                          "${time.hour.toString().padLeft(2, '0')} : ${time.minute.toString().padLeft(2, '0')}",
+                          "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}",
                         );
                       }
                     },

@@ -54,8 +54,53 @@ class RouterPage {
               },
             ),
       ),
-      GoRoute(path: '/todo', builder: (context, state) => const TodoList()),
-      GoRoute(path: '/addtodo', builder: (context, state) => const AddTodo()),
+      GoRoute(
+        path: '/todo',
+        pageBuilder:
+            (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const TodoList(),
+              transitionDuration: const Duration(milliseconds: 800),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0.0, -1.0),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: FadeTransition(opacity: animation, child: child),
+                );
+              },
+            ),
+      ),
+
+      GoRoute(
+        path: '/addtodo',
+        pageBuilder:
+            (context, state) => CustomTransitionPage(
+              key: state.pageKey,
+              child: const AddTodo(),
+              transitionDuration: const Duration(milliseconds: 800),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0.0, 1.0),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: FadeTransition(opacity: animation, child: child),
+                );
+              },
+            ),
+      ),
     ],
     errorBuilder:
         (context, state) =>

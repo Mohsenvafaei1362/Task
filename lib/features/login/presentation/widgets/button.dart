@@ -34,69 +34,13 @@ class WidgetButton extends StatelessWidget {
             );
           } else {
             final overlay = Overlay.of(context);
-            final overlayEntry = OverlayEntry(
-              builder:
-                  (context) => Positioned(
-                    bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-                    left: 20,
-                    right: 20,
-                    child: CupertinoPopupSurface(
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: CupertinoColors.systemTeal.withAlpha(20),
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: CupertinoColors.systemGrey.withOpacity(
-                                0.2,
-                              ),
-                              blurRadius: 6,
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              CupertinoIcons.clear_thick_circled,
-                              color: CupertinoColors.destructiveRed,
-                            ),
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                'Please enter valid username and password',
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: CupertinoTheme.of(
-                                  context,
-                                ).textTheme.textStyle.copyWith(
-                                  color: CupertinoColors.destructiveRed,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-            );
+            final overlayEntry = overlayDialog();
 
             overlay.insert(overlayEntry);
 
             Future.delayed(Duration(seconds: 4), () {
               overlayEntry.remove();
             });
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     content: Text(
-            //       'Please enter valid username and password',
-            //       style: TextStyle(color: Colors.red),
-            //     ),
-            //     duration: const Duration(seconds: 2),
-            //     backgroundColor: CULTURED_1,
-            //   ),
-            // );
           }
         },
         child:
@@ -107,6 +51,52 @@ class WidgetButton extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
       ),
+    );
+  }
+
+  //! cupertino dialog
+  OverlayEntry overlayDialog() {
+    return OverlayEntry(
+      builder:
+          (context) => Positioned(
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+            left: 20,
+            right: 20,
+            child: CupertinoPopupSurface(
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemTeal.withAlpha(20),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: CupertinoColors.systemGrey.withOpacity(0.2),
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      CupertinoIcons.clear_thick_circled,
+                      color: CupertinoColors.destructiveRed,
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Please enter valid username and password',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: CupertinoTheme.of(context).textTheme.textStyle
+                            .copyWith(color: CupertinoColors.destructiveRed),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
     );
   }
 }
