@@ -25,7 +25,9 @@ class ToDoPreferencesImpl extends BasePreferences implements ToDoPreferences {
   Future<List<Todo>?> getToDoList() => getTodoList();
 
   @override
-  saveToDoList(Todo? todolist) {
-    save('todoList', todoList: todolist != null ? [todolist] : []);
+  saveToDoList(Todo? todolist) async {
+    final List<Todo>? currentList = await getToDoList();
+    final List<Todo> updatedList = [...currentList ?? [], todolist!];
+    save('todoList', todoList: updatedList);
   }
 }
