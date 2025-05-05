@@ -17,8 +17,9 @@ class RegisterUsecase extends UseCase<bool, RegisterParams> {
 }
 
 class RegisterParams {
-  final String username;
-  final String password;
+  final String firstName;
+  final String lastName;
+  final int? age;
 
-  RegisterParams({required this.username, required this.password});
+  RegisterParams({required this.firstName, required this.lastName, this.age});
 }

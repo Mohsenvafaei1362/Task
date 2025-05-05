@@ -4,6 +4,7 @@ import 'package:testproject/core/error/failures.dart';
 import 'package:testproject/core/network/di/di.dart';
 import 'package:testproject/core/network/safe_api_call.dart';
 import 'package:testproject/core/network/service/api_client.dart';
+import 'package:testproject/features/register/data/models/request/register_request.dart';
 import 'package:testproject/features/register/domain/ripository/register_repository.dart';
 import 'package:testproject/features/register/domain/usecase/register_usecase.dart';
 
@@ -13,7 +14,14 @@ class RegisterRepositoryImpl extends SafeApiCall implements RegisterRepository {
   final ApiClient apiClient;
   @override
   Future<Either<Failure, bool>> register(RegisterParams params) async {
-    // TODO: implement register
-    throw UnimplementedError();
+    final request = RegisterRequest(
+      firstName: params.firstName,
+      lastName: params.lastName,
+      age: params.age,
+    );
+    final either = await call(apiClient.signUp(request));
+    return either.fold((l) => left(l), (r) {
+      return right(true);
+    });
   }
 }

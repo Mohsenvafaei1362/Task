@@ -47,26 +47,28 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HttpResponse<bool>> otpCode(RegisterRequest registerRequest) async {
+  Future<HttpResponse<RegisterResponse>> signUp(
+    RegisterRequest registerRequest,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(registerRequest.toJson());
-    final _options = _setStreamType<HttpResponse<bool>>(
+    final _options = _setStreamType<HttpResponse<RegisterResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'auth/register',
+            'users/add',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<bool>(_options);
-    late bool _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late RegisterResponse _value;
     try {
-      _value = _result.data!;
+      _value = RegisterResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

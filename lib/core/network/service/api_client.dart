@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:testproject/features/login/data/models/request/login_request.dart';
 import 'package:testproject/features/login/data/models/response/login_response.dart';
 import 'package:testproject/features/register/data/models/request/register_request.dart';
+import 'package:testproject/features/register/data/models/response/register_response.dart';
 
 part 'api_client.g.dart';
 
@@ -15,6 +16,8 @@ abstract class ApiClient {
   Future<HttpResponse<LoginResponse>> signIn(@Body() LoginRequest loginRequest);
 
   //! ثبت نام
-  @POST('auth/register')
-  Future<HttpResponse<bool>> otpCode(@Body() RegisterRequest registerRequest);
+  @POST('users/add')
+  Future<HttpResponse<RegisterResponse>> signUp(
+    @Body() RegisterRequest registerRequest,
+  );
 }

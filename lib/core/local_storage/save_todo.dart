@@ -17,10 +17,12 @@ abstract class ToDoPreferences {
 @LazySingleton(as: ToDoPreferences)
 class ToDoPreferencesImpl extends BasePreferences implements ToDoPreferences {
   static const String _todoList = 'todoList';
+  static const String _todoListtomorrow = 'todoListTomorrow';
 
   @override
   void removeAll() {
     remove(_todoList);
+    remove(_todoListtomorrow);
   }
 
   @override

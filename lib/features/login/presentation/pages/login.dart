@@ -26,17 +26,17 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    bloc.close(); 
+    bloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false, 
+      canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          return; 
+          return;
         }
       },
 
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
     return OverlayEntry(
       builder:
           (context) => Positioned(
-            bottom: MediaQuery.of(context).padding.bottom + 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
             left: 20,
             right: 20,
             child: CupertinoPopupSurface(

@@ -45,7 +45,7 @@ class WidgetButton extends StatelessWidget {
         },
         child:
             bloc?.state is LoginLoading
-                ? CupertinoActivityIndicator(color: Colors.white)
+                ? CupertinoActivityIndicator(color: Colors.black)
                 : Text(
                   title ?? 'Sign in',
                   style: TextStyle(color: Colors.black),

@@ -31,6 +31,8 @@ import 'package:testproject/features/register/domain/ripository/register_reposit
     as _i781;
 import 'package:testproject/features/register/domain/usecase/register_usecase.dart'
     as _i800;
+import 'package:testproject/features/register/presentation/bloc/register_bloc.dart'
+    as _i651;
 import 'package:testproject/features/todo_list/presentation/bloc/todo_bloc.dart'
     as _i460;
 
@@ -86,6 +88,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i76.LoginUsecase(gh<_i860.LoginRepository>()),
     );
     gh.factory<_i948.LoginBloc>(() => _i948.LoginBloc(gh<_i76.LoginUsecase>()));
+    gh.factory<_i651.RegisterBloc>(
+      () => _i651.RegisterBloc(gh<_i800.RegisterUsecase>()),
+    );
     return this;
   }
 }
