@@ -5,6 +5,7 @@ import 'package:testproject/features/todo_list/domain/entities/todo.dart';
 
 abstract class BasePreferences {
   static const keyTodo = "todoList";
+  static const keyTodoTomorrow = "todoListTomorrow";
   void removeAll();
 
   Future<SharedPreferences> getPrefs() async {
@@ -51,6 +52,19 @@ abstract class BasePreferences {
     }).toList();
   }
 
+  Future<List<Todo>> getTodoListTomorrow() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String>? todoStrings = prefs.getStringList(keyTodoTomorrow);
+
+    if (todoStrings == null) {
+      return [];
+    }
+    return todoStrings.map((todoString) {
+      final Map<String, dynamic> todoMap = jsonDecode(todoString);
+      return Todo.fromJson(todoMap);
+    }).toList();
+  }
+
   Future<List<String>?> getList(String key) async {
     SharedPreferences prefs = await getPrefs();
     return prefs.getStringList(key);
@@ -64,6 +78,7 @@ abstract class BasePreferences {
     double? doubleValue,
     List<String>? list,
     List<Todo>? todoList,
+    // List<Todo>? todoListTomorrow,
   }) async {
     SharedPreferences prefs = await getPrefs();
     if (stringValue != null) {
@@ -81,11 +96,23 @@ abstract class BasePreferences {
     if (list != null) {
       await prefs.setStringList(key, list);
     }
-    if (todoList != null) {
+    if (todoList != null && key == 'todoList') {
       await prefs.setStringList(
-        keyTodo,
+        key,
         todoList.map((todo) => jsonEncode(todo.toJson())).toList(),
       );
     }
+    if (todoList != null) {
+      await prefs.setStringList(
+        key,
+        todoList.map((todo) => jsonEncode(todo.toJson())).toList(),
+      );
+    }
+    // if (todoListTomorrow != null) {
+    //   await prefs.setStringList(
+    //     key,
+    //     todoListTomorrow.map((todo) => jsonEncode(todo.toJson())).toList(),
+    //   );
+    // }
   }
 }

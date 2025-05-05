@@ -6,8 +6,10 @@ import 'package:testproject/features/todo_list/domain/entities/todo.dart';
 
 abstract class ToDoPreferences {
   saveToDoList(Todo? todo);
+  saveToDoListTomorrow(Todo? todo);
 
   Future<List<Todo>?> getToDoList();
+  Future<List<Todo>?> getToDoListTomorrow();
 
   removeAll();
 }
@@ -25,9 +27,19 @@ class ToDoPreferencesImpl extends BasePreferences implements ToDoPreferences {
   Future<List<Todo>?> getToDoList() => getTodoList();
 
   @override
+  Future<List<Todo>?> getToDoListTomorrow() => getTodoListTomorrow();
+
+  @override
   saveToDoList(Todo? todolist) async {
     final List<Todo>? currentList = await getToDoList();
     final List<Todo> updatedList = [...currentList ?? [], todolist!];
     save('todoList', todoList: updatedList);
+  }
+
+  @override
+  saveToDoListTomorrow(Todo? todolist) async {
+    final List<Todo>? currentList = await getToDoListTomorrow();
+    final List<Todo> updatedList = [...currentList ?? [], todolist!];
+    save('todoListTomorrow', todoList: updatedList);
   }
 }

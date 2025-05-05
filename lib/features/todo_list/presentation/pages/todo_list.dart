@@ -19,6 +19,7 @@ class _TodoListState extends State<TodoList> {
   List<bool> isCheckedList = List.generate(5, (_) => false);
   getTodo() async {
     await bloc.getTodo();
+    await bloc.getTodoTomorrow();
     setState(() {});
   }
 
@@ -173,10 +174,11 @@ class _TodoListState extends State<TodoList> {
                       // Suggested code may be subject to a license. Learn more: ~LicenseLog:3418398354.
                       SizedBox(height: 35),
                       ListView.builder(
-                        itemCount: 3,
+                        itemCount: bloc.todoTomorrow?.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
+                          final data = bloc.todoTomorrow?[index];
                           return Container(
                             margin: EdgeInsets.only(bottom: 20),
                             child: Row(
@@ -196,7 +198,7 @@ class _TodoListState extends State<TodoList> {
                                     SizedBox(
                                       width: 290,
                                       child: Text(
-                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                                        data?.title ?? '',
                                         style: TextStyle(
                                           color: Color(0xff737373),
                                           fontSize: 15,
@@ -206,7 +208,7 @@ class _TodoListState extends State<TodoList> {
                                     ),
                                     SizedBox(height: 13),
                                     Text(
-                                      '12:42 PM',
+                                      data?.time ?? '',
                                       style: TextStyle(
                                         color: Color(0xffA3A3A3),
                                         fontSize: 13,

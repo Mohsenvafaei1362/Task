@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:testproject/core/local_storage/save_todo.dart';
@@ -19,20 +18,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   bool isSelected = true;
   String taskName = '';
   List<Todo>? result = [];
-  final List<Todo>? todo = [
-    Todo(
-      isCompleted: true,
-      time: '12:00',
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-      widget: Checkbox(value: false, onChanged: (value) {}),
-    ),
-    Todo(
-      isCompleted: false,
-      time: '12:00',
-      title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-      widget: Checkbox(value: false, onChanged: (value) {}),
-    ),
-  ];
+  final List<Todo>? todo = [];
+  final List<Todo>? todoTomorrow = [];
   TodoBloc(this.toDoPreferences) : super(TodoInitial()) {
     on<TodoEvent>((event, emit) {
       // TODO: implement event handler
@@ -42,9 +29,19 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     await toDoPreferences.saveToDoList(todolist);
   }
 
+  Future<void> saveTodoTomorrow(Todo todolist) async {
+    await toDoPreferences.saveToDoListTomorrow(todolist);
+  }
+
   Future<void> getTodo() async {
     await toDoPreferences.getToDoList().then((value) {
       todo?.addAll(value ?? []);
+    });
+  }
+
+  Future<void> getTodoTomorrow() async {
+    await toDoPreferences.getToDoListTomorrow().then((value) {
+      todoTomorrow?.addAll(value ?? []);
     });
   }
 

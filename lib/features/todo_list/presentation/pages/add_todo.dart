@@ -161,39 +161,74 @@ class WidgetButton extends StatelessWidget {
             overlayEntry.remove();
           });
         } else {
-          bloc
-              .saveTodo(
-                Todo(
-                  title: bloc.taskName,
-                  isCompleted: bloc.isSelected,
-                  time: bloc.dateTime.value,
-                ),
-              )
-              .then((value) {
-                context.go('/todo');
-                FocusScope.of(context).unfocus();
-
-                //! نمایش پیام  با Overlay
-                final overlay = Overlay.of(context);
-                final overlayEntry = overlayDialog(
-                  Text(
-                    'Task added successfully',
-                    style: CupertinoTheme.of(context).textTheme.textStyle
-                        .copyWith(color: CupertinoColors.systemGreen),
+          if (bloc.isSelected) {
+            bloc
+                .saveTodo(
+                  Todo(
+                    title: bloc.taskName,
+                    isCompleted: bloc.isSelected,
+                    time: bloc.dateTime.value,
                   ),
+                )
+                .then((value) {
+                  context.go('/todo');
+                  FocusScope.of(context).unfocus();
 
-                  Icon(
-                    CupertinoIcons.checkmark_alt_circle_fill,
-                    color: CupertinoColors.systemGreen,
-                  ),
-                );
+                  //! نمایش پیام  با Overlay
+                  final overlay = Overlay.of(context);
+                  final overlayEntry = overlayDialog(
+                    Text(
+                      'Task added successfully',
+                      style: CupertinoTheme.of(context).textTheme.textStyle
+                          .copyWith(color: CupertinoColors.systemGreen),
+                    ),
 
-                overlay.insert(overlayEntry);
+                    Icon(
+                      CupertinoIcons.checkmark_alt_circle_fill,
+                      color: CupertinoColors.systemGreen,
+                    ),
+                  );
 
-                Future.delayed(Duration(seconds: 4), () {
-                  overlayEntry.remove();
+                  overlay.insert(overlayEntry);
+
+                  Future.delayed(Duration(seconds: 4), () {
+                    overlayEntry.remove();
+                  });
                 });
-              });
+          } else {
+            bloc
+                .saveTodoTomorrow(
+                  Todo(
+                    title: bloc.taskName,
+                    isCompleted: bloc.isSelected,
+                    time: bloc.dateTime.value,
+                  ),
+                )
+                .then((value) {
+                  context.go('/todo');
+                  FocusScope.of(context).unfocus();
+
+                  //! نمایش پیام  با Overlay
+                  final overlay = Overlay.of(context);
+                  final overlayEntry = overlayDialog(
+                    Text(
+                      'Task added successfully',
+                      style: CupertinoTheme.of(context).textTheme.textStyle
+                          .copyWith(color: CupertinoColors.systemGreen),
+                    ),
+                    Icon(
+                      CupertinoIcons.checkmark_alt_circle_fill,
+                      color: CupertinoColors.systemGreen,
+                    ),
+                  );
+
+                  overlay.insert(overlayEntry);
+
+                  Future.delayed(Duration(seconds: 4), () {
+                    overlayEntry.remove();
+                  });
+                });
+          }
         }
       },
       style: ElevatedButton.styleFrom(
