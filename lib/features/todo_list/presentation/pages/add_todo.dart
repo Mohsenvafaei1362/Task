@@ -168,6 +168,10 @@ class WidgetButton extends StatelessWidget {
                     title: bloc.taskName,
                     isCompleted: bloc.isSelected,
                     time: bloc.dateTime.value,
+                    statusTime:
+                        bloc.hurs.value >= 12 && bloc.minut.value > 0
+                            ? 'PM'
+                            : 'AM',
                   ),
                 )
                 .then((value) {
@@ -202,6 +206,10 @@ class WidgetButton extends StatelessWidget {
                     title: bloc.taskName,
                     isCompleted: bloc.isSelected,
                     time: bloc.dateTime.value,
+                    statusTime:
+                        bloc.hurs.value >= 12 && bloc.minut.value > 0
+                            ? 'PM'
+                            : 'AM',
                   ),
                 )
                 .then((value) {
@@ -417,7 +425,7 @@ class ShowHours extends StatelessWidget {
                   snapshot.snapshot2.data != null &&
                           snapshot.snapshot2.data! >= 12 &&
                           snapshot.snapshot3.data != null &&
-                          snapshot.snapshot3.data! >= 0
+                          snapshot.snapshot3.data! > 0
                       ? 'PM'
                       : 'AM',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),

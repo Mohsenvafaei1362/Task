@@ -139,7 +139,7 @@ class _TodoListState extends State<TodoList> {
                                     ),
                                     SizedBox(height: 13),
                                     Text(
-                                      "${data?.time} ${bloc.hurs.value >= 12 && bloc.minut.value >= 0 ? 'PM' : 'AM'}",
+                                      "${data?.time} ${data?.statusTime}",
                                       style: TextStyle(
                                         color:
                                             data?.isCompleted != null &&
@@ -171,7 +171,6 @@ class _TodoListState extends State<TodoList> {
                           color: Color(0xff000000),
                         ),
                       ),
-                      // Suggested code may be subject to a license. Learn more: ~LicenseLog:3418398354.
                       SizedBox(height: 35),
                       ListView.builder(
                         itemCount: bloc.todoTomorrow?.length,
@@ -208,7 +207,7 @@ class _TodoListState extends State<TodoList> {
                                     ),
                                     SizedBox(height: 13),
                                     Text(
-                                      data?.time ?? '',
+                                      "${data?.time} ${data?.statusTime}",
                                       style: TextStyle(
                                         color: Color(0xffA3A3A3),
                                         fontSize: 13,

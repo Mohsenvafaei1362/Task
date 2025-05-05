@@ -78,7 +78,6 @@ abstract class BasePreferences {
     double? doubleValue,
     List<String>? list,
     List<Todo>? todoList,
-    // List<Todo>? todoListTomorrow,
   }) async {
     SharedPreferences prefs = await getPrefs();
     if (stringValue != null) {
@@ -108,11 +107,5 @@ abstract class BasePreferences {
         todoList.map((todo) => jsonEncode(todo.toJson())).toList(),
       );
     }
-    // if (todoListTomorrow != null) {
-    //   await prefs.setStringList(
-    //     key,
-    //     todoListTomorrow.map((todo) => jsonEncode(todo.toJson())).toList(),
-    //   );
-    // }
   }
 }
