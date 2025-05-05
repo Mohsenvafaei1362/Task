@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:testproject/core/network/di/di.dart';
-import 'package:testproject/core/utils/colors.dart';
 import 'package:testproject/features/login/presentation/bloc/login_bloc.dart';
 import 'package:testproject/features/login/presentation/widgets/button.dart';
 import 'package:testproject/features/login/presentation/widgets/new_account.dart';
@@ -27,18 +26,17 @@ class _LoginState extends State<Login> {
 
   @override
   void dispose() {
-    bloc.close(); // بستن بلوک در هنگام خارج شدن از صفحه
+    bloc.close(); 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false, // از بسته شدن صفحه جلوگیری می‌کند
+      canPop: false, 
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          // کاربر دکمه برگشت را فشار داده است
-          return; // به هیچ صفحه‌ای نروید
+          return; 
         }
       },
 
@@ -62,13 +60,13 @@ class _LoginState extends State<Login> {
           },
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: BACKGROUND_GRAY_COLOR_ICON.withValues(alpha: .5),
+              backgroundColor: Color.fromARGB(210, 71, 71, 109),
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TitlePage(),
-                    // const SizedBox(height: 20),
+                    const SizedBox(height: 30),
                     TextFieldWidget(
                       labelText: 'Username',
                       onChanged: (value) {
@@ -82,9 +80,10 @@ class _LoginState extends State<Login> {
                         bloc.password = value;
                       },
                     ),
-                    NewAccount(),
                     const SizedBox(height: 20),
                     WidgetButton(bloc: bloc),
+                    const SizedBox(height: 20),
+                    NewAccount(),
                   ],
                 ),
               ),

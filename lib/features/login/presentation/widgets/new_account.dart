@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,15 +10,24 @@ class NewAccount extends StatelessWidget {
     return SizedBox(
       width: 300,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            'You do not have an account?',
+            style: TextStyle(
+              color: Colors.white.withAlpha(700),
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
           TextButton(
             onPressed: () {
               context.go('/register');
             },
             child: Text(
-              'You do not have an account?',
+              'Registration',
               style: TextStyle(
-                color: Colors.white.withAlpha(700),
+                color: CupertinoColors.activeBlue,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),

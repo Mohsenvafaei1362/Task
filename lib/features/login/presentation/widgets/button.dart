@@ -12,10 +12,10 @@ class WidgetButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: context.screenwidth * 0.45,
+      width: context.screenwidth * 0.8,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF8AB2A6),
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
         ),
@@ -48,7 +48,7 @@ class WidgetButton extends StatelessWidget {
                 ? CupertinoActivityIndicator(color: Colors.white)
                 : Text(
                   title ?? 'Sign in',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
       ),
     );

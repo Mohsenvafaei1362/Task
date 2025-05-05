@@ -33,7 +33,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
         onChanged: onChanged,
         decoration: InputDecoration(
-          fillColor: fillColor ?? Colors.white.withAlpha(600),
+          fillColor: fillColor ?? Colors.transparent,
           filled: true,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),

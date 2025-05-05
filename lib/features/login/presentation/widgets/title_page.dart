@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:testproject/core/extentions/extention.dart';
-import 'package:testproject/gen/assets.gen.dart';
 
 class TitlePage extends StatelessWidget {
-  const TitlePage({super.key, this.title});
+  const TitlePage({super.key, this.title, this.subtitle});
   final String? title;
+  final String? subtitle;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -13,19 +12,24 @@ class TitlePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Text(
-          //   title ?? 'Login Page',
-          //   style: TextStyle(
-          //     fontSize: 24,
-          //     fontWeight: FontWeight.bold,
-          //     color: Colors.white.withAlpha(700),
-          //   ),
-          // ),
-          Assets.images.logo4.image(
-            width: context.screenwidth * 0.45,
-            height: 160,
-            color: Colors.white.withAlpha(200),
+          Text(
+            title ?? 'Welcome',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.white.withAlpha(700),
+            ),
           ),
+          const SizedBox(height: 8),
+          Text(
+            subtitle ?? 'Please log in to your account',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Colors.white.withAlpha(700),
+            ),
+          ),
+          // Asset
         ],
       ),
     );
