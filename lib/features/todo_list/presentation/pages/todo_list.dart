@@ -64,29 +64,53 @@ class _TodoListState extends State<TodoList> {
                   padding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Today',
-                            style: TextStyle(
-                              fontSize: 34,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff000000),
+                      bloc.todo!.isEmpty && bloc.todoTomorrow!.isEmpty
+                          ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                20,
+                                300,
+                                20,
+                                300,
+                              ),
+                              child: Text(
+                                'No tasks',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black38,
+                                ),
+                              ),
                             ),
+                          )
+                          : Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              bloc.todo!.isEmpty
+                                  ? SizedBox()
+                                  : Text(
+                                    'Today',
+                                    style: TextStyle(
+                                      fontSize: 34,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xff000000),
+                                    ),
+                                  ),
+                              bloc.todo!.isEmpty
+                                  ? SizedBox()
+                                  : Text(
+                                    'Hide completed',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff3478F6),
+                                    ),
+                                  ),
+                            ],
                           ),
-                          Text(
-                            'Hide completed',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff3478F6),
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(height: 35),
                       ListView.builder(
                         itemCount: bloc.todo?.length,
@@ -98,18 +122,57 @@ class _TodoListState extends State<TodoList> {
                             margin: EdgeInsets.only(bottom: 20),
                             child: Row(
                               children: [
-                                Checkbox(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  activeColor: Colors.black,
-                                  value: data?.isCompleted,
-                                  onChanged: (value) {
+                                GestureDetector(
+                                  onTap: () {
                                     setState(() {
-                                      data?.isCompleted = value ?? false;
+                                      data?.isCompleted =
+                                          !(data.isCompleted ?? false);
                                     });
                                   },
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: Color(0xffE8E8E8),
+                                        width: 1,
+                                      ),
+                                      shape: BoxShape.rectangle,
+                                      color:
+                                          data?.isCompleted != null &&
+                                                  data?.isCompleted == true
+                                              ? Colors.black
+                                              : Colors.white,
+                                    ),
+                                    child:
+                                        data?.isCompleted != null &&
+                                                data?.isCompleted == true
+                                            ? Icon(
+                                              Icons.check,
+                                              color: Colors.white,
+                                              size: 14,
+                                            )
+                                            : null,
+                                  ),
                                 ),
+                                // Checkbox(
+                                //   shape: RoundedRectangleBorder(
+                                //     borderRadius: BorderRadius.circular(5),
+                                //     side: BorderSide(
+                                //       style: BorderStyle.solid,
+                                //       color: Color.fromARGB(255, 153, 9, 9),
+                                //       width: 10,
+                                //     ),
+                                //   ),
+                                //   activeColor: Colors.black,
+                                //   value: data?.isCompleted,
+                                //   onChanged: (value) {
+                                //     setState(() {
+                                //       data?.isCompleted = value ?? false;
+                                //     });
+                                //   },
+                                // ),
                                 SizedBox(width: 13),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,6 +191,7 @@ class _TodoListState extends State<TodoList> {
                                                   : Color(0xff737373),
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
+                                          decorationColor: Colors.grey.shade500,
                                           decoration:
                                               data?.isCompleted != null &&
                                                       data?.isCompleted == true
@@ -148,6 +212,7 @@ class _TodoListState extends State<TodoList> {
                                                 : Color(0xffA3A3A3),
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
+                                        decorationColor: Colors.grey.shade500,
                                         decoration:
                                             data?.isCompleted != null &&
                                                     data?.isCompleted == true
@@ -163,14 +228,16 @@ class _TodoListState extends State<TodoList> {
                         },
                       ),
                       SizedBox(height: 30),
-                      Text(
-                        'Tomorrow',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff000000),
-                        ),
-                      ),
+                      bloc.todoTomorrow!.isEmpty
+                          ? SizedBox()
+                          : Text(
+                            'Tomorrow',
+                            style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xff000000),
+                            ),
+                          ),
                       SizedBox(height: 35),
                       ListView.builder(
                         itemCount: bloc.todoTomorrow?.length,
