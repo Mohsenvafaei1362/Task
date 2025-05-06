@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:testproject/core/extentions/extention.dart';
+import 'package:testproject/features/login/domain/usecase/login_usecase.dart';
 import 'package:testproject/features/login/presentation/bloc/login_bloc.dart';
 
 class WidgetButton extends StatelessWidget {
@@ -28,15 +29,16 @@ class WidgetButton extends StatelessWidget {
               await bloc?.toDoPreferences.getUsername() == bloc?.username &&
               await bloc?.toDoPreferences.getPass() != null &&
               await bloc?.toDoPreferences.getPass() == bloc?.password) {
+            bloc?.add(
+              Login(
+                params: LoginParams(
+                  username: bloc?.username ?? '',
+                  password: bloc?.password ?? '',
+                ),
+              ),
+            );
+            await Future.delayed(Duration(seconds: 2));
             context.go('/todo');
-            // bloc?.add(
-            //   Login(
-            //     params: LoginParams(
-            //       username: bloc?.username ?? '',
-            //       password: bloc?.password ?? '',
-            //     ),
-            //   ),
-            // );
           } else {
             final overlay = Overlay.of(context);
             final overlayEntry = overlayDialog();
@@ -50,7 +52,7 @@ class WidgetButton extends StatelessWidget {
         },
         child:
             bloc?.state is LoginLoading
-                ? CupertinoActivityIndicator(color: Colors.black)
+                ? CupertinoActivityIndicator(color: Colors.white)
                 : Text(
                   title ?? 'Sign in',
                   style: TextStyle(color: Colors.white),

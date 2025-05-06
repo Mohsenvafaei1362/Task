@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:testproject/core/local_storage/save_todo.dart';
@@ -26,18 +25,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _login(Login event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
-    final result = await loginUsecase(event.params);
-    result.fold((l) => left(emit(DataError(message: l.message))), (r) {
-      response = ResponseEntities(
-        accessToken: r.accessToken,
-        email: r.email,
-        firstName: r.firstName,
-        lastName: r.lastName,
-        id: r.id,
-        image: r.image,
-        username: r.username,
-      );
-      emit(LoginSuccess());
-    });
+    await Future.delayed(Duration(seconds: 2));
+    emit(LoginSuccess());
+    // final result = await loginUsecase(event.params);
+    // result.fold((l) => left(emit(DataError(message: l.message))), (r) {
+    //   response = ResponseEntities(
+    //     accessToken: r.accessToken,
+    //     email: r.email,
+    //     firstName: r.firstName,
+    //     lastName: r.lastName,
+    //     id: r.id,
+    //     image: r.image,
+    //     username: r.username,
+    //   );
+    //   emit(LoginSuccess());
+    // });
   }
 }

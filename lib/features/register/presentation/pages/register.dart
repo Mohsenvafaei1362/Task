@@ -144,7 +144,7 @@ class _RegisterState extends State<Register> {
                         child:
                             state is RegisterLoading
                                 ? CupertinoActivityIndicator(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 )
                                 : Text(
                                   'Sign up',
