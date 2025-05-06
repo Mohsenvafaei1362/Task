@@ -27,18 +27,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoading());
     await Future.delayed(Duration(seconds: 2));
     emit(LoginSuccess());
-    // final result = await loginUsecase(event.params);
-    // result.fold((l) => left(emit(DataError(message: l.message))), (r) {
-    //   response = ResponseEntities(
-    //     accessToken: r.accessToken,
-    //     email: r.email,
-    //     firstName: r.firstName,
-    //     lastName: r.lastName,
-    //     id: r.id,
-    //     image: r.image,
-    //     username: r.username,
-    //   );
-    //   emit(LoginSuccess());
-    // });
   }
 }

@@ -11,7 +11,6 @@ class NetworkInfoImpl implements NetworkInfo {
   Future<bool> get isConnected async {
     final List<ConnectivityResult> connectivityResult =
         await (Connectivity().checkConnectivity());
-    // await AuthScureStorageImpl().saveVpn(connectivityResult.name);
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi) ||
         connectivityResult.contains(ConnectivityResult.vpn)) {

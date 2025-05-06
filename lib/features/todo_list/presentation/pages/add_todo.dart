@@ -296,7 +296,6 @@ class SelectedToday extends StatefulWidget {
 }
 
 class _SelectedTodayState extends State<SelectedToday> {
-  // bool isSelected = true; //! وضعیت انتخاب شده
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -348,7 +347,6 @@ class ShowHours extends StatelessWidget {
               stream: bloc.dateTime.stream,
               builder: (context, snapshot) {
                 return SizedBox.expand(
-                  // این ویجت باعث پر شدن کامل فضای Container می‌شود
                   child: TextField(
                     readOnly: true,
                     textAlign: TextAlign.center,
@@ -408,7 +406,7 @@ class ShowHours extends StatelessWidget {
                   color: Colors.grey,
                   spreadRadius: 1,
                   blurRadius: 3,
-                  offset: Offset(0, 2), // changes position of shadow
+                  offset: Offset(0, 2),
                 ),
               ],
               borderRadius: BorderRadius.circular(6),

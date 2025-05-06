@@ -25,7 +25,6 @@ abstract class SafeApiCall {
       } on DioException catch (error) {
         if (error.type == DioExceptionType.badResponse) {
           final response = error.response;
-          // final json = response?.data;
           switch (response?.statusCode) {
             case 500:
               return left(ServerFailure());
@@ -36,10 +35,7 @@ abstract class SafeApiCall {
               //! دریافت توکن جدید
               await _refreshToken();
               return left(const TimeOutFailure(message: '401'));
-            /////////////////////////////////////////////////////////////////////////////
-            // return left(
-            //   const TimeOutFailure(message: '401'),
-            // );
+            
             default:
           }
         }
@@ -47,29 +43,12 @@ abstract class SafeApiCall {
       }
     } else {
       return left(const InternetFailure());
-      // final statusInternet = await AuthScureStorageImpl().getVpn();
-      // if (statusInternet == 'vpn') {
-      //   return left(const VpnFailure());
-      // } else {
-      //   return left(const InternetFailure());
-      // }
     }
   }
 
   //! منطق برای دریافت توکن جدید
   Future<String?> _refreshToken() async {
-    // final bloc = getIt<LoginBloc>();
-    // final refreshToken = await bloc.authScureStorage.getrefreshToken();
-    // // if (refreshToken != null) {
-    // bloc.add(
-    //   LoginStarted(
-    //     loginParams: LoginParams(refreshToken: refreshToken),
-    //   ),
-    // );
-    // }
     await Future.delayed(const Duration(milliseconds: 500));
-    // final newToken = await bloc.authScureStorage.getToken();
-    // return newToken;
     return null;
   }
 }

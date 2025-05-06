@@ -156,23 +156,6 @@ class _TodoListState extends State<TodoList> {
                                             : null,
                                   ),
                                 ),
-                                // Checkbox(
-                                //   shape: RoundedRectangleBorder(
-                                //     borderRadius: BorderRadius.circular(5),
-                                //     side: BorderSide(
-                                //       style: BorderStyle.solid,
-                                //       color: Color.fromARGB(255, 153, 9, 9),
-                                //       width: 10,
-                                //     ),
-                                //   ),
-                                //   activeColor: Colors.black,
-                                //   value: data?.isCompleted,
-                                //   onChanged: (value) {
-                                //     setState(() {
-                                //       data?.isCompleted = value ?? false;
-                                //     });
-                                //   },
-                                // ),
                                 SizedBox(width: 13),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

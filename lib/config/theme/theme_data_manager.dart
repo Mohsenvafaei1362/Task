@@ -58,9 +58,7 @@ ThemeData lightTheme = ThemeData(
               : SWITCH_NOT_CHECKED_TRACK_COLOR,
     ),
   ),
-  textTheme: TextTheme(
-    labelLarge: TextStyle(fontSize: 12), // Snackbar Action Button
-  ),
+  textTheme: TextTheme(labelLarge: TextStyle(fontSize: 12)),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: COLOR_SECONDARY,
   ),
@@ -126,9 +124,7 @@ ThemeData darkTheme = ThemeData(
               : SWITCH_NOT_CHECKED_TRACK_COLOR,
     ),
   ),
-  textTheme: TextTheme(
-    labelLarge: TextStyle(fontSize: 12), // Snackbar Action Button
-  ),
+  textTheme: TextTheme(labelLarge: TextStyle(fontSize: 12)),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: COLOR_SECONDARY,
   ),

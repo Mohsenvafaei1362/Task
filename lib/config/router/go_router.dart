@@ -106,7 +106,6 @@ class RouterPage {
         (context, state) =>
             Scaffold(body: Center(child: Text('Error: ${state.error}'))),
 
-    // errorBuilder: (context, state) => const Login(),
     debugLogDiagnostics: true,
   );
 }
