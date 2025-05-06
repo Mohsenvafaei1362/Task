@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
           },
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: Color.fromARGB(210, 71, 71, 109),
+              backgroundColor: Colors.white,
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

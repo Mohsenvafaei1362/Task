@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:testproject/core/local_storage/save_todo.dart';
 import 'package:testproject/features/login/domain/entities/response_entities.dart';
 import 'package:testproject/features/login/domain/usecase/login_usecase.dart';
 
@@ -13,12 +14,13 @@ part 'login_state.dart';
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUsecase loginUsecase;
+  final ToDoPreferences toDoPreferences;
 
   ResponseEntities response = ResponseEntities();
   String? username;
   String? password;
 
-  LoginBloc(this.loginUsecase) : super(LoginInitial()) {
+  LoginBloc(this.loginUsecase, this.toDoPreferences) : super(LoginInitial()) {
     on<Login>(_login);
   }
 

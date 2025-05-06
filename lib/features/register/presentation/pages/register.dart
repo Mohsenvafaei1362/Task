@@ -41,7 +41,18 @@ class _RegisterState extends State<Register> {
             if (state is RegisterSuccess) {
               context.go('/');
               final overlay = Overlay.of(context);
-              final overlayEntry = overlayDialog('Register Success');
+              final overlayEntry = overlayDialog(
+                Text(
+                  'Register Success',
+                  style: CupertinoTheme.of(context).textTheme.textStyle
+                      .copyWith(color: CupertinoColors.systemGreen),
+                ),
+
+                Icon(
+                  CupertinoIcons.checkmark_alt_circle_fill,
+                  color: CupertinoColors.systemGreen,
+                ),
+              );
 
               overlay.insert(overlayEntry);
 
@@ -52,7 +63,7 @@ class _RegisterState extends State<Register> {
           },
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: Color.fromARGB(210, 71, 71, 109),
+              backgroundColor: Colors.white,
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -65,6 +76,7 @@ class _RegisterState extends State<Register> {
                     TextFieldWidget(
                       labelText: 'Username',
                       onChanged: (value) {
+                        bloc.toDoPreferences.saveUsername(value);
                         bloc.username = value;
                       },
                     ),
@@ -72,6 +84,7 @@ class _RegisterState extends State<Register> {
                     TextFieldWidget(
                       labelText: 'password',
                       onChanged: (value) {
+                        bloc.toDoPreferences.savePass(value);
                         bloc.password = value;
                       },
                     ),
@@ -80,7 +93,7 @@ class _RegisterState extends State<Register> {
                       width: context.screenwidth * 0.8,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -106,7 +119,19 @@ class _RegisterState extends State<Register> {
                           } else {
                             final overlay = Overlay.of(context);
                             final overlayEntry = overlayDialog(
-                              'Please enter valid data',
+                              Text(
+                                'Please enter valid data',
+                                style: CupertinoTheme.of(
+                                  context,
+                                ).textTheme.textStyle.copyWith(
+                                  color: CupertinoColors.destructiveRed,
+                                ),
+                              ),
+
+                              Icon(
+                                CupertinoIcons.clear_thick_circled,
+                                color: CupertinoColors.destructiveRed,
+                              ),
                             );
 
                             overlay.insert(overlayEntry);
@@ -123,7 +148,7 @@ class _RegisterState extends State<Register> {
                                 )
                                 : Text(
                                   'Sign up',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                       ),
                     ),
@@ -153,7 +178,7 @@ class _RegisterState extends State<Register> {
   }
 
   //! cupertino popup dialog
-  OverlayEntry overlayDialog(String message) {
+  OverlayEntry overlayDialog(Widget message, Widget icon) {
     return OverlayEntry(
       builder:
           (context) => Positioned(
@@ -175,18 +200,7 @@ class _RegisterState extends State<Register> {
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      CupertinoIcons.clear_thick_circled,
-                      color: CupertinoColors.systemGreen,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      message,
-                      style: CupertinoTheme.of(context).textTheme.textStyle
-                          .copyWith(color: CupertinoColors.systemGreen),
-                    ),
-                  ],
+                  children: [icon, SizedBox(width: 8), message],
                 ),
               ),
             ),

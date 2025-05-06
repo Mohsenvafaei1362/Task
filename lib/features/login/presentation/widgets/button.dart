@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:testproject/core/extentions/extention.dart';
-import 'package:testproject/features/login/domain/usecase/login_usecase.dart';
 import 'package:testproject/features/login/presentation/bloc/login_bloc.dart';
 
 class WidgetButton extends StatelessWidget {
@@ -15,23 +15,28 @@ class WidgetButton extends StatelessWidget {
       width: context.screenwidth * 0.8,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.blue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
         ),
-        onPressed: () {
+        onPressed: () async {
           if (bloc?.username != null &&
               bloc!.username!.length > 3 &&
               bloc?.password != null &&
-              bloc!.password!.length > 3) {
-            bloc?.add(
-              Login(
-                params: LoginParams(
-                  username: bloc?.username ?? '',
-                  password: bloc?.password ?? '',
-                ),
-              ),
-            );
+              bloc!.password!.length > 3 &&
+              await bloc?.toDoPreferences.getUsername() != null &&
+              await bloc?.toDoPreferences.getUsername() == bloc?.username &&
+              await bloc?.toDoPreferences.getPass() != null &&
+              await bloc?.toDoPreferences.getPass() == bloc?.password) {
+            context.go('/todo');
+            // bloc?.add(
+            //   Login(
+            //     params: LoginParams(
+            //       username: bloc?.username ?? '',
+            //       password: bloc?.password ?? '',
+            //     ),
+            //   ),
+            // );
           } else {
             final overlay = Overlay.of(context);
             final overlayEntry = overlayDialog();
@@ -48,7 +53,7 @@ class WidgetButton extends StatelessWidget {
                 ? CupertinoActivityIndicator(color: Colors.black)
                 : Text(
                   title ?? 'Sign in',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
       ),
     );

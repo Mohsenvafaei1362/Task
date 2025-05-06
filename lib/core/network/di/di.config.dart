@@ -87,9 +87,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i76.LoginUsecase>(
       () => _i76.LoginUsecase(gh<_i860.LoginRepository>()),
     );
-    gh.factory<_i948.LoginBloc>(() => _i948.LoginBloc(gh<_i76.LoginUsecase>()));
     gh.factory<_i651.RegisterBloc>(
-      () => _i651.RegisterBloc(gh<_i800.RegisterUsecase>()),
+      () => _i651.RegisterBloc(
+        gh<_i800.RegisterUsecase>(),
+        gh<_i197.ToDoPreferences>(),
+      ),
+    );
+    gh.factory<_i948.LoginBloc>(
+      () =>
+          _i948.LoginBloc(gh<_i76.LoginUsecase>(), gh<_i197.ToDoPreferences>()),
     );
     return this;
   }

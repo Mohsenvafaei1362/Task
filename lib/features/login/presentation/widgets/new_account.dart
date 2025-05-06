@@ -15,7 +15,7 @@ class NewAccount extends StatelessWidget {
           Text(
             'You do not have an account?',
             style: TextStyle(
-              color: Colors.white.withAlpha(700),
+              color: Colors.black45,
               fontSize: 12,
               fontWeight: FontWeight.w400,
             ),

@@ -27,7 +27,7 @@ class TextFieldWidget extends StatelessWidget {
       height: height ?? 50,
       child: TextField(
         style: TextStyle(
-          color: Color(0xFFD0DDD0),
+          color: Colors.grey,
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
@@ -37,7 +37,7 @@ class TextFieldWidget extends StatelessWidget {
           filled: true,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: WHITE_COLOR.withAlpha(600)),
+            borderSide: BorderSide(color: Colors.grey.withAlpha(100)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -48,7 +48,7 @@ class TextFieldWidget extends StatelessWidget {
           ),
           labelText: labelText ?? 'Username',
           labelStyle: TextStyle(
-            color: Colors.white.withAlpha(700),
+            color: Colors.grey,
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),

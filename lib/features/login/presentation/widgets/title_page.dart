@@ -17,7 +17,7 @@ class TitlePage extends StatelessWidget {
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.white.withAlpha(700),
+              color: Colors.black,
             ),
           ),
           const SizedBox(height: 8),
@@ -26,7 +26,7 @@ class TitlePage extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: Colors.white.withAlpha(700),
+              color: Colors.black,
             ),
           ),
           // Asset
